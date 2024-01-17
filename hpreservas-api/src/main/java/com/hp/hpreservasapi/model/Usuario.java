@@ -1,10 +1,9 @@
 package com.hp.hpreservasapi.model;
 
-import org.springframework.data.annotation.Id;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,8 +13,10 @@ import lombok.Setter;
 public class Usuario {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	Long id;
-	String nome;
-	String email;
-	String senha;
+	private Long id;
+	private String nome;
+	private String email;
+	private String senha;
+	
+	
 }

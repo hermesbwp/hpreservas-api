@@ -2,11 +2,10 @@ package com.hp.hpreservasapi.model;
 
 import java.util.Collection;
 
-import org.springframework.data.annotation.Id;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,5 +17,5 @@ public class Hotel {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	Long id;
 	String nome;
-	//Collection<Quarto> quartos;
+	Collection<Quarto> quartos;
 }
