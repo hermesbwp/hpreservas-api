@@ -15,7 +15,6 @@ import lombok.Setter;
 public class Hotel {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	Long id;
-	String nome;
-	Collection<Quarto> quartos;
+	private Long id;
+	private String nome;
 }
