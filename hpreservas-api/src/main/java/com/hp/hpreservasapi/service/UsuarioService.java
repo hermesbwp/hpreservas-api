@@ -5,6 +5,8 @@ import com.hp.hpreservasapi.repository.IUsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class UsuarioService {
     @Autowired
@@ -12,8 +14,8 @@ public class UsuarioService {
     public Usuario add(Usuario usuario){
         return usuarioRepository.save(usuario);
     }
-    public void todos(){
-        usuarioRepository.findAll();
+    public List<Usuario> todos(){
+        return usuarioRepository.findAll();
     }
     public void delete(Long id){
         usuarioRepository.deleteById(id);
