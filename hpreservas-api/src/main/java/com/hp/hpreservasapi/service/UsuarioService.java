@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class UsuarioService {
@@ -17,7 +16,7 @@ public class UsuarioService {
     public Usuario add(Usuario usuario) throws Exception{
         var u = usuarioRepository.findAll().stream()
                 .filter(usr-> usr.getNome().equalsIgnoreCase(usuario.getNome())
-                        && usr.getEmail().equalsIgnoreCase(usuario.getEmail())).collect(Collectors.toList());
+                        && usr.getEmail().equalsIgnoreCase(usuario.getEmail())).toList();
 
         if (u.isEmpty()) {
             usuarioRepository.save(usuario);
