@@ -1,5 +1,6 @@
 package com.hp.hpreservasapi.controller;
 
+import com.hp.hpreservasapi.exception.DuplicateException;
 import com.hp.hpreservasapi.exception.NotFoundException;
 import com.hp.hpreservasapi.service.UsuarioService;
 import lombok.SneakyThrows;
@@ -18,14 +19,9 @@ public class UsuarioController {
 	@Autowired
 	UsuarioService usuarioService;
 
-	@GetMapping("/hello")
-	ResponseEntity<String> hello() {
-		return new ResponseEntity<>("Hello World!", HttpStatus.OK);
-	}
-
 	@GetMapping("/todos")
-	ResponseEntity<List<Usuario>> all() {
-		return new ResponseEntity<List<Usuario>>(usuarioService.todos(), HttpStatus.OK);
+	ResponseEntity all() {
+		return new ResponseEntity(usuarioService.todos(), HttpStatus.OK);
 	}
 
 	@GetMapping("/{id}")
@@ -35,14 +31,19 @@ public class UsuarioController {
 			var u = usuarioService.get(id);
 			return new ResponseEntity(u, HttpStatus.OK);
 		}catch(NotFoundException e){
-			return e.throwNotFoundException();
+			System.out.println("Usuario");
+			return e.throwNotFoundException(id);
 		}
     }
 
 	@PostMapping("/")
-	ResponseEntity<Usuario> add(@RequestBody Usuario usr) {
-		var u = usuarioService.add(usr);
-		return new ResponseEntity<Usuario>(u, HttpStatus.OK);
+	ResponseEntity add(@RequestBody Usuario usr) throws Exception {
+		try{
+			var u = usuarioService.add(usr);
+			return new ResponseEntity(u, HttpStatus.OK);
+		}catch(DuplicateException e){
+			return e.throwDuplicateException();
+		}
 	}
 	@SneakyThrows
 	@PutMapping("/{id}")
@@ -51,8 +52,13 @@ public class UsuarioController {
 		return new ResponseEntity<Usuario>(u, HttpStatus.OK);
 	}
 	@DeleteMapping("/{id}")
-	ResponseEntity<String> delete(@PathVariable Long id) {
+	ResponseEntity delete(@PathVariable Long id) {
+		try{
 		var retorno = usuarioService.delete(id);
-		return new ResponseEntity<String>(retorno, HttpStatus.OK);
+			return new ResponseEntity(retorno, HttpStatus.OK);
+		}catch (NotFoundException e){
+			System.out.println("Usuario");
+			return e.throwNotFoundException(id);
+		}
 	}
 }
