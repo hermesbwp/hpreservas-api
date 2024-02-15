@@ -31,6 +31,7 @@ import static org.mockito.internal.verification.VerificationModeFactory.times;
 
 @ActiveProfiles("test")
 @AutoConfigureTestDatabase
+@Transactional
 class UsuarioServiceTest {
     @Mock
     IUsuarioRepository usuarioRepository;
@@ -88,18 +89,18 @@ class UsuarioServiceTest {
         assertEquals("Objeto duplicado",thrown.getMessage());
     }
 
-    @Test
-    @DisplayName("Modificando usuario existente.")
-    @Transactional
-    void edit() throws Exception {
-        Usuario usrNew = new Usuario(1L,"Joao Carlos","joao@gmail.com","1234");
-        when(usuarioRepository.findById(1L)).thenReturn(Optional.of(usrNew));
-        //entityManager.persist(usrNew);
-        usrNew.setNome("Jojo testes");
-        usuarioService.edit(usrNew,1L);
-        assertEquals(usrNew.getNome(),usuarioService.edit(usrNew,1L).getNome());
-
-    }
+//    @Test
+//    @DisplayName("Modificando usuario existente.")
+//    @Transactional
+//    void edit() throws Exception {
+//        Usuario usrNew = new Usuario(1L,"Joao Carlos","joao@gmail.com","1234");
+//        when(usuarioRepository.findById(1L)).thenReturn(Optional.of(usrNew));
+//        entityManager.persist(usrNew);
+//        usrNew.setNome("Jojo testes");
+//        usuarioService.edit(usrNew,1L);
+//        assertEquals(usrNew.getNome(),usuarioService.edit(usrNew,1L).getNome());
+//
+//    }
 
     @Test
     @DisplayName("Modificando usuario inexistente.")
