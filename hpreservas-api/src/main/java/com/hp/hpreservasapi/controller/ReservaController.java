@@ -2,6 +2,7 @@ package com.hp.hpreservasapi.controller;
 
 import com.hp.hpreservasapi.exception.DuplicateException;
 import com.hp.hpreservasapi.exception.NotFoundException;
+import com.hp.hpreservasapi.model.Quarto;
 import com.hp.hpreservasapi.model.Reserva;
 import com.hp.hpreservasapi.service.ReservaService;
 import lombok.SneakyThrows;
@@ -10,11 +11,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 
 
 @RestController
-@RequestMapping("/usr")
+@RequestMapping("/rvr")
 public class ReservaController {
 
 	@Autowired
@@ -62,4 +64,27 @@ public class ReservaController {
 			return e.throwNotFoundException(id);
 		}
 	}
+
+	@GetMapping("/disponivel")
+	ResponseEntity<?> isAvaiable(@RequestBody Date data) {
+		try{
+			var u = reservaService.isAvaible(data);
+			return new ResponseEntity<List<Quarto>>(u, HttpStatus.OK);
+		}catch(NotFoundException e){
+			System.out.println("Reserva");
+			return e.throwNotFoundException(data.getTime());
+		}
+	}
+//
+//	@GetMapping("/disponivel")
+//	ResponseEntity<?> isAvaiable(@RequestBody Date dataInicio, @RequestBody Date dataFim) {
+//		try{
+//			var u = usuarioService.isAvaible(data);
+//			return new ResponseEntity<List<Quarto>>(u, HttpStatus.OK);
+//		}catch(NotFoundException e){
+//			System.out.println("Usuario");
+//			return e.throwNotFoundException(id);
+//		}
+//	}
+
 }

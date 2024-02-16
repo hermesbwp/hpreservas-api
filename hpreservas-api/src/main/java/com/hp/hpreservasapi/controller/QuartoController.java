@@ -14,7 +14,7 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("/usr")
+@RequestMapping("/qtr")
 public class QuartoController {
 
 	@Autowired
@@ -23,6 +23,11 @@ public class QuartoController {
 	@GetMapping("/todos")
 	ResponseEntity<?> all() {
 		return new ResponseEntity<List<Quarto>>(quartoService.todos(), HttpStatus.OK);
+	}
+
+	@GetMapping("/todos{id}")
+	ResponseEntity<?> all(@PathVariable Long id) {
+		return new ResponseEntity<List<Quarto>>(quartoService.quartosHotel(id), HttpStatus.OK);
 	}
 
 	@GetMapping("/{id}")

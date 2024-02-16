@@ -38,14 +38,13 @@ class UsuarioServiceTest {
     @Autowired
     public TestEntityManager entityManager;
 
-    @Mock
+    
     private EntityManagerFactory entityManagerFactory;
     @Autowired
     @InjectMocks
     UsuarioService usuarioService;
 
     @BeforeEach
-    @Transactional
     void setUp(){
         MockitoAnnotations.openMocks(this);
         this.entityManager = new TestEntityManager(entityManagerFactory);
@@ -90,14 +89,12 @@ class UsuarioServiceTest {
 
     @Test
     @DisplayName("Modificando usuario existente.")
-    @Transactional
     void edit() throws Exception {
-        Usuario usrNew = new Usuario(1L,"Joao Carlos","joao@gmail.com","1234");
-        when(usuarioRepository.findById(1L)).thenReturn(Optional.of(usrNew));
-        entityManager.persist(usrNew);
-        usrNew.setNome("Jojo testes");
-        usuarioService.edit(usrNew,1L);
-        assertEquals(usrNew.getNome(),usuarioService.edit(usrNew,1L).getNome());
+        Usuario entity = this.entityManager.persist(new Usuario(1L,"Joao Carlos","joao@gmail.com","1234"));
+        when(usuarioRepository.findById(1L)).thenReturn(Optional.of(entity));
+        entity.setNome("Jojo testes");
+        usuarioService.edit(entity,1L);
+        assertEquals(entity.getNome(),usuarioService.edit(entity,1L).getNome());
 
     }
 

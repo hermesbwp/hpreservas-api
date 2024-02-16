@@ -53,14 +53,14 @@ public class HotelController {
 		var u = hotelService.edit(htl,id);
 		return new ResponseEntity<Hotel>(u, HttpStatus.OK);
 	}
-	@DeleteMapping("/{id}")
-	ResponseEntity<?> delete(@PathVariable Long id) {
-		try{
-		var retorno = hotelService.delete(id);
-			return ResponseEntity.noContent().build();
-		}catch (NotFoundException e){
-			System.out.println("Hotel");
-			return e.throwNotFoundException(id);
-		}
-	}
+//	@DeleteMapping("/{id}")
+//	ResponseEntity<?> delete(@PathVariable Long id) {
+//		try{
+//		var retorno = hotelService.delete(id);
+//			return ResponseEntity.noContent().build();
+//		}catch (NotFoundException e){
+//			System.out.println("Hotel");
+//			return e.throwNotFoundException(id);
+//		}
+//	}
 }

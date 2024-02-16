@@ -3,16 +3,22 @@ package com.hp.hpreservasapi.service;
 import com.hp.hpreservasapi.exception.DuplicateException;
 import com.hp.hpreservasapi.exception.NotFoundException;
 import com.hp.hpreservasapi.model.Usuario;
+import com.hp.hpreservasapi.repository.IQuartoRepository;
 import com.hp.hpreservasapi.repository.IUsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
 public class UsuarioService {
     @Autowired
     IUsuarioRepository usuarioRepository;
+
+    @Autowired
+    IQuartoRepository quartoRepository;
     public Usuario add(Usuario usuario) throws Exception{
         var u = usuarioRepository.findAll().stream()
                 .filter(usr-> usr.getNome().equalsIgnoreCase(usuario.getNome())
@@ -36,6 +42,7 @@ public class UsuarioService {
         }
         return usr;
     }
+    @Transactional
     public Usuario edit(Usuario usuario,Long id) throws NotFoundException {
         return usuarioRepository.findById(id).map(usrBd->{
             usrBd.setEmail(usuario.getEmail());
@@ -48,4 +55,5 @@ public class UsuarioService {
     public Usuario get(Long id) throws NotFoundException {
         return usuarioRepository.findById(id).orElseThrow(NotFoundException::new);
     }
+
 }

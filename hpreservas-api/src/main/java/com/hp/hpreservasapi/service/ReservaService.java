@@ -2,11 +2,13 @@ package com.hp.hpreservasapi.service;
 
 import com.hp.hpreservasapi.exception.DuplicateException;
 import com.hp.hpreservasapi.exception.NotFoundException;
+import com.hp.hpreservasapi.model.Quarto;
 import com.hp.hpreservasapi.model.Reserva;
 import com.hp.hpreservasapi.repository.IReservaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -51,5 +53,10 @@ public class ReservaService {
 
     public Reserva get(Long id) throws NotFoundException {
         return reservaRepository.findById(id).orElseThrow(NotFoundException::new);
+    }
+
+    public List<Quarto> isAvaible(Date data) throws NotFoundException {
+        return (List<Quarto>) reservaRepository.isAvaible(data, Quarto.QuartoStatus.PRONTO)
+                .orElseThrow(NotFoundException::new);
     }
 }

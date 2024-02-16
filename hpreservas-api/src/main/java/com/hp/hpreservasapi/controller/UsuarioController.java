@@ -2,6 +2,7 @@ package com.hp.hpreservasapi.controller;
 
 import com.hp.hpreservasapi.exception.DuplicateException;
 import com.hp.hpreservasapi.exception.NotFoundException;
+import com.hp.hpreservasapi.model.Quarto;
 import com.hp.hpreservasapi.service.UsuarioService;
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.hp.hpreservasapi.model.Usuario;
 
+import java.util.Date;
 import java.util.List;
 
 

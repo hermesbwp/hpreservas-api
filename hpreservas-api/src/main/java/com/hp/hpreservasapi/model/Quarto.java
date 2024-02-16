@@ -19,4 +19,10 @@ public class Quarto {
 	@ManyToOne
 	private Hotel hotel;
 	private Integer capacidade;
-}
+	private QuartoStatus status;
+	public enum QuartoStatus {
+		OCUPADO,
+		MANUTENCAO,
+		PRONTO
+	 }
+	}
