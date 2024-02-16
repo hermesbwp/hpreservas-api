@@ -26,7 +26,7 @@ public class QuartoService {
             if (u.isEmpty()) {
                 quartoRepository.save(quarto);
             }else{
-                System.out.println("Elemento ja cadastrado " + quarto.getNome());
+                System.out.println("Elemento cadastrado " + quarto.getNome());
                 throw new DuplicateException();
             }
         }

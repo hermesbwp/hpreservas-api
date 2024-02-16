@@ -3,7 +3,6 @@ package com.hp.hpreservasapi.service;
 import com.hp.hpreservasapi.exception.DuplicateException;
 import com.hp.hpreservasapi.exception.NotFoundException;
 import com.hp.hpreservasapi.model.Reserva;
-import com.hp.hpreservasapi.model.Usuario;
 import com.hp.hpreservasapi.repository.IReservaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
