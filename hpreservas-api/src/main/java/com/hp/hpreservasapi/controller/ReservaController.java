@@ -2,63 +2,63 @@ package com.hp.hpreservasapi.controller;
 
 import com.hp.hpreservasapi.exception.DuplicateException;
 import com.hp.hpreservasapi.exception.NotFoundException;
-import com.hp.hpreservasapi.service.UsuarioService;
+import com.hp.hpreservasapi.model.Reserva;
+import com.hp.hpreservasapi.service.ReservaService;
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import com.hp.hpreservasapi.model.Usuario;
 
 import java.util.List;
 
 
 @RestController
 @RequestMapping("/usr")
-public class UsuarioController {
+public class ReservaController {
 
 	@Autowired
-	UsuarioService usuarioService;
+	ReservaService reservaService;
 
 	@GetMapping("/todos")
-	ResponseEntity<?> all() {
-		return new ResponseEntity<List<Usuario>>(usuarioService.todos(), HttpStatus.OK);
+	ResponseEntity<List<Reserva>> all() {
+		return new ResponseEntity<List<Reserva>>(reservaService.todos(), HttpStatus.OK);
 	}
 
 	@GetMapping("/{id}")
 	ResponseEntity<?> get(@PathVariable Long id) {
-		var usr = new Usuario();
+		var usr = new Reserva();
 		try{
-			var u = usuarioService.get(id);
-			return new ResponseEntity<Usuario>(u, HttpStatus.OK);
+			var u = reservaService.get(id);
+			return new ResponseEntity<Reserva>(u, HttpStatus.OK);
 		}catch(NotFoundException e){
-			System.out.println("Usuario");
+			System.out.println("Reserva");
 			return e.throwNotFoundException(id);
 		}
     }
 
 	@PostMapping("/")
-	ResponseEntity<?> add(@RequestBody Usuario usr) throws Exception {
+	ResponseEntity<?> add(@RequestBody Reserva rvr) throws Exception {
 		try{
-			var u = usuarioService.add(usr);
-			return new ResponseEntity<Usuario>(u, HttpStatus.OK);
+			var u = reservaService.add(rvr);
+			return new ResponseEntity<Reserva>(u, HttpStatus.OK);
 		}catch(DuplicateException e){
 			return e.throwDuplicateException();
 		}
 	}
 	@SneakyThrows
 	@PutMapping("/{id}")
-	ResponseEntity<?> edit(@RequestBody Usuario usr, @PathVariable Long id) {
-		var u = usuarioService.edit(usr,id);
-		return new ResponseEntity<Usuario>(u, HttpStatus.OK);
+	ResponseEntity<Reserva> edit(@RequestBody Reserva rvr, @PathVariable Long id) {
+		var u = reservaService.edit(rvr,id);
+		return new ResponseEntity<Reserva>(u, HttpStatus.OK);
 	}
 	@DeleteMapping("/{id}")
 	ResponseEntity<?> delete(@PathVariable Long id) {
 		try{
-		var retorno = usuarioService.delete(id);
+		var retorno = reservaService.delete(id);
 			return ResponseEntity.noContent().build();
 		}catch (NotFoundException e){
-			System.out.println("Usuario");
+			System.out.println("Reserva");
 			return e.throwNotFoundException(id);
 		}
 	}

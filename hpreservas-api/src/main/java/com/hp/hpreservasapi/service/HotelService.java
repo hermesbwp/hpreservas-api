@@ -13,6 +13,9 @@ import java.util.List;
 public class HotelService {
     @Autowired
     IHotelRepository hotelRepository;
+
+    @Autowired
+    QuartoService quartoService;
     public Hotel add(Hotel hotel) throws Exception{
         var u = hotelRepository.findAll().stream()
                 .filter(h-> h.getNome().equalsIgnoreCase(h.getNome())).toList();
@@ -27,10 +30,13 @@ public class HotelService {
     public List<Hotel> todos(){
         return hotelRepository.findAll();
     }
+
     public Hotel delete(Long id) throws NotFoundException {
         Hotel hotel = this.get(id);
-        if(hotel!=null){
-        hotelRepository.deleteById(id);
+        if(quartoService.quartosHotel(id).isEmpty()){
+            if(hotel!=null){
+                hotelRepository.deleteById(id);
+            }
         }
         return hotel;
     }
